@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const API_KEY = "VNvQJcZd2BIzAyMwFBDqvGgg6rVLth1h";
-//const API_KEY = "Nzr9hJNvkxhtcjfYjmkl82PZnpOmnIC9";
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 export type Region = {
   ID: string;
