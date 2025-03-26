@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setCityKey, setCityName, selectCountryCode, selectRegionName } from "../state/searchCitySlice";
 import { useGetAdminAreasQuery, useLazyGetCityByCountryCodeAndAdminCodeQuery, AdminArea } from '../services/weatherApi';
 
-export default function Region() {
+const Country = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const countryCode = useSelector(selectCountryCode);
@@ -15,7 +15,7 @@ export default function Region() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading admin areas.</p>;
 
-  async function handleClick(city: AdminArea) {
+  const handleClick = async (city: AdminArea) => {
     try {
       const { data: cityData } = await triggerGetCity({
         countryCode: countryCode as string,
@@ -24,7 +24,6 @@ export default function Region() {
       });
 
       if (!cityData || cityData.length === 0) {
-        console.error("City not found.");
         return;
       }
 
@@ -33,9 +32,9 @@ export default function Region() {
 
       navigate(`/forecast`);
     } catch (error) {
-      console.error("Error fetching city data:", error);
+      
     }
-  }
+  };
 
   return (
     <div className="mt-4">
@@ -57,4 +56,6 @@ export default function Region() {
       </div>
     </div>
   );
-}
+};
+
+export default Country;

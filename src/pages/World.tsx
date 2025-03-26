@@ -3,7 +3,7 @@ import { useGetRegionsQuery, Region } from "../services/weatherApi";
 import { useDispatch } from "react-redux";
 import { setRegionCode, setRegionName } from "../state/searchCitySlice";
 
-export default function World() {
+const World = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetRegionsQuery();
@@ -11,11 +11,11 @@ export default function World() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading weather data.</p>;
 
-  function handleRegionClick(region: Region) {
+  const handleRegionClick = (region: Region) => {
     dispatch(setRegionCode(region.ID));
     dispatch(setRegionName(region.EnglishName));
     navigate(`/region/${region.EnglishName}`);
-  }
+  };
 
   return (
     <div className="mt-4">
@@ -33,4 +33,6 @@ export default function World() {
       </ul>
     </div>
   );
-}
+};
+
+export default World;

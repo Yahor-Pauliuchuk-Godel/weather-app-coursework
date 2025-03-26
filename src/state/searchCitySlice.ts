@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
-interface SearchCity {
+type SearchCity = {
   cityKey: string,
   cityName: string,
   countryCode: string,

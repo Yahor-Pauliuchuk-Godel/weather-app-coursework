@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCityName, selectCityName } from "../state/searchCitySlice";
 
-export default function Search() {
+const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cityName = useSelector(selectCityName);
   const [inputValue, setInputValue] = useState(cityName);
 
-  function handleSearch() {
+  const handleSearch = () => {
+    setInputValue("");
     dispatch(setCityName(inputValue));
     navigate(`/locations`);
-  }
+  };
 
   return (
     <div className="d-flex mt-4">
@@ -25,5 +26,7 @@ export default function Search() {
       />
       <button className="btn btn-primary" onClick={handleSearch}>Search</button>
     </div>
-  )
-}
+  );
+};
+
+export default Search;

@@ -8,7 +8,7 @@ import SearchList from "./pages/SearchList";
 import Search from "./components/Search";
 import Breadcrumb from "./components/Breadcrumb";
 
-export default function App() {
+const App = () => {
   return (
     <div className="container">
       <main className="d-flex flex-column align-items-center min-vh-100">
@@ -29,4 +29,6 @@ export default function App() {
       </footer>
     </div>
   );
-}
+};
+
+export default App;

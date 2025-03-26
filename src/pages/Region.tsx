@@ -3,7 +3,7 @@ import { useGetCountriesQuery, Country } from "../services/weatherApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setCountryCode, setCountryName, selectRegionCode } from "../state/searchCitySlice";
 
-export default function Region() {
+const Region = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const regionCode = useSelector(selectRegionCode);
@@ -13,11 +13,11 @@ export default function Region() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading countries.</p>;
 
-  function handleCountryClick(country: Country) {
+  const handleCountryClick = (country: Country) => {
     dispatch(setCountryCode(country.ID));
     dispatch(setCountryName(country.EnglishName));
     navigate(`/country/${country.EnglishName}`);
-  }
+  };
 
   return (
     <div className="mt-4">
@@ -39,4 +39,6 @@ export default function Region() {
       </div>
     </div>
   );
-}
+};
+
+export default Region;

@@ -1,25 +1,10 @@
-import { useGetHourlyForecastsByLocationQuery } from '../services/weatherApi';
+import { useGetHourlyForecastsByLocationQuery, HourlyForecast } from '../services/weatherApi';
 
-export interface HourlyWeatherData {
-  EpochDateTime: number;
-  DateTime: number,
-  Temperature: {
-    Value: number,
-    Unit: string
-  },
-  Wind: {
-    Speed: {
-      Value: number,
-      Unit: string
-    }
-  }
+type HourlyWeatherProps = {
+  locationId: string
 }
 
-interface HourlyWeatherProps {
-  locationId: string | undefined
-}
-
-export default function HourlyWeather({ locationId }: HourlyWeatherProps) {
+const HourlyWeather = ({ locationId }: HourlyWeatherProps) => {
   const { data: weatherData, error: weatherError, isLoading: weatherLoading } = useGetHourlyForecastsByLocationQuery(locationId, { skip: !locationId });
 
   if (weatherLoading) return <p>Loading...</p>;
@@ -28,7 +13,7 @@ export default function HourlyWeather({ locationId }: HourlyWeatherProps) {
 
   return (
     <>
-      {weatherData.map((hourlyWeather: HourlyWeatherData) =>
+      {weatherData.map((hourlyWeather: HourlyForecast) =>
         <div key={hourlyWeather.EpochDateTime} className="weather-info mt-4">
           <p className="text-muted">
             {new Date(hourlyWeather.DateTime).toLocaleString()}
@@ -45,5 +30,7 @@ export default function HourlyWeather({ locationId }: HourlyWeatherProps) {
         </div>
       )}
     </>
-  )
-}
+  );
+};
+
+export default HourlyWeather;

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCityData, selectCityName } from "../state/searchCitySlice";
 import { useGetCityByNameQuery } from "../services/weatherApi";
 
-interface SearchCity {
+type SearchCity = {
   Key: string,
   EnglishName: string,
   Region: {
@@ -16,7 +16,7 @@ interface SearchCity {
   }
 }
 
-export default function SearchList() {
+const SearchList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cityName = useSelector(selectCityName);
@@ -26,7 +26,7 @@ export default function SearchList() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading weather data.</p>;
 
-  function handleCityClick(city: SearchCity) {
+  const handleCityClick = (city: SearchCity) => {
     const searchCity = {
       cityName: city.EnglishName,
       cityKey: city.Key,
@@ -37,24 +37,25 @@ export default function SearchList() {
     }
 
     dispatch(setCityData(searchCity));
-
     navigate(`/forecast`);
-  }
+  };
 
   return (
     <div className="mt-4">
-    <ul className="list-group">
-      {data?.map((city: SearchCity) => (
-        <li key={city.Key} className="list-group-item text-center">
-          <button
-            className="btn btn-link text-decoration-none"
-            onClick={() => handleCityClick(city)}
-          >
-            {city.EnglishName} - {city.Country.EnglishName}
-          </button>
-        </li>
-      ))}
-    </ul>
-  </div>
-  )
-}
+      <ul className="list-group">
+        {data?.map((city: SearchCity) => (
+          <li key={city.Key} className="list-group-item text-center">
+            <button
+              className="btn btn-link text-decoration-none"
+              onClick={() => handleCityClick(city)}
+            >
+              {city.EnglishName} - {city.Country.EnglishName}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default SearchList;

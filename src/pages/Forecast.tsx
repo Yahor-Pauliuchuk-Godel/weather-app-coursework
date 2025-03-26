@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectIntervalsType, changeInterval } from "../state/intervalsSlice";
 import { selectCityKey, selectCityName } from "../state/searchCitySlice";
-import {  useGetDailyForecastsByLocationQuery } from "../services/weatherApi";
+import { useGetDailyForecastsByLocationQuery } from "../services/weatherApi";
 import CurrentlyWeather from "../components/CurrentlyWeather";
 import HourlyWeather from "../components/HourlyWeather";
 
-export default function Forecast() {
+const Forecast = () => {
   const locationId = useSelector(selectCityKey);
   const intervalType = useSelector(selectIntervalsType);
   const cityName = useSelector(selectCityName);
@@ -43,4 +43,6 @@ export default function Forecast() {
       {weatherIntervalComponent}
     </>
   );
-}
+};
+
+export default Forecast;
