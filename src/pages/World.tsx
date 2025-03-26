@@ -2,14 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useGetRegionsQuery, Region } from "../services/weatherApi";
 import { useDispatch } from "react-redux";
 import { setRegionCode, setRegionName } from "../state/searchCitySlice";
+import LocationList from "../components/LocationList";
 
 const World = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetRegionsQuery();
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading weather data.</p>;
 
   const handleRegionClick = (region: Region) => {
     dispatch(setRegionCode(region.ID));
@@ -18,20 +16,12 @@ const World = () => {
   };
 
   return (
-    <div className="mt-4">
-      <ul className="list-group">
-        {data?.map((region: Region) => (
-          <li key={region.ID} className="list-group-item text-center">
-            <button
-              className="btn btn-link text-decoration-none"
-              onClick={() => handleRegionClick(region)}
-            >
-              {region.EnglishName}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <LocationList
+      locations={data}
+      onItemClick={handleRegionClick}
+      isLoading={isLoading}
+      error={error}
+    />
   );
 };
 
